@@ -1,19 +1,21 @@
+import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug import generate_password_hash, check_password_hash
 
-app = Flask('flaskdemo')
+app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
 	'sqlite://///Users/jamesgray/Desktop/Source/Python/flask-demo/data/users.db'
-db = SQLAlchemy(app)
+# Create SQLAlchemy object for user database
+udb = SQLAlchemy(app)
 
-class User(db.Model):
+class User(udb.Model):
 	"""Creates a user object and stores in an SQLAlchemy database."""
 
 	# Initialize columns
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(80), unique=True)
-	pw_hash = db.Column(db.String(160), unique=False)
+	id = udb.Column(udb.Integer, primary_key=True)
+	name = udb.Column(udb.String(80), unique=True)
+	pw_hash = udb.Column(udb.String(160), unique=False)
 
 	def __init__(self, username, password):
 		self.name = username
@@ -26,8 +28,8 @@ class User(db.Model):
 			# Insert the user object into the database 
 			# if no instance exists.
 			self.set_pw(password)
-			db.session.add(self)
-			db.session.commit()
+			udb.session.add(self)
+			udb.session.commit()
 		else:
 			# Retrieve relevant data from database
 			self.id = db_instance.id
@@ -50,5 +52,5 @@ class User(db.Model):
 		"""Completely remove the user from the database.
 		Note that you must query the database for the user object
 		to be deleted before calling this function."""
-		db.session.delete(self)
-		db.session.commit()
+		udb.session.delete(self)
+		udb.session.commit()

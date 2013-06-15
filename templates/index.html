@@ -1,16 +1,17 @@
 <!doctype html>
-<title>Flask Demo</title>
+<title>flask demo</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static',
 filename='style.css') }}">
 <div class=page>
-	<h1>Flask Demo</h1>
+	<h1>flask demo</h1>
 	<div class=navigation>
 		<a href="{{ url_for('create') }}">create account</a> <br>
 	{% if not session.logged_in %}
 		<a href="{{ url_for('login') }}">log in</a>
 	{% else %}
 		<a href="{{ url_for('logout') }}">log out</a> <br>
-		<a href="{{ url_for('view_files', name=session['logged_in']) }}">my files</a>
+		<a href="{{ url_for('view_files', name=session['logged_in']) }}">my files</a> <br>
+		<a href="{{ url_for('upload', name=session['logged_in']) }}">upload file</a>
 	{% endif %}
 	</div>
 	{% for message in get_flashed_messages() %}
