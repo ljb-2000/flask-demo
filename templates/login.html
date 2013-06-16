@@ -1,7 +1,13 @@
+<!--flask-demo - login.html
+	Author: James Gray
+	June 2013
+
+	This contains the forms required for a user
+	to log in to their account.-->
+
 {% extends "index.html" %}
 {% block body %}
 	<h2>login</h2>
-	{% if error %}<p><strong>Error: </strong>{{ error }}</p>{% endif %}
 	<form action="{{ url_for('login') }}" method=post>
 		<dl>
 			<dt>Username:

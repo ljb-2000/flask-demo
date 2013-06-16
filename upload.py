@@ -1,3 +1,11 @@
+# flask-demo - upload.py
+# Author: James Gray
+# June 2013
+#
+# This file contains the Upload class, which
+# flask-demo uses to add and fetch file uploads
+# and owner information to and from a file database.
+
 import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -5,20 +13,25 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
 	'sqlite://///Users/jamesgray/Desktop/Source/Python/flask-demo/data/uploads.db'
+
 # Create SQLAlchemy object for file database
 fdb = SQLAlchemy(app)
 
 class Upload(fdb.Model):
-	"""Creates an upload object and stores in an SQLAlchemy database."""
+	"""
+	Creates an upload object and stores in an SQLAlchemy database.
+	"""
 
 	# Initialize columns
 	id = fdb.Column(fdb.Integer, primary_key=True)
-	userid = fdb.Column(fdb.String(80), unique=True)
-	filename = fdb.Column(fdb.String(160), unique=False)
+	userid = fdb.Column(fdb.String(80))
+	filename = fdb.Column(fdb.String(160))
 
 	def __init__(self, username, filename):
 		self.userid = username
 		self.filename = filename
+
+		# Insert the object into the database.
 		fdb.session.add(self)
 		fdb.session.commit()
 
