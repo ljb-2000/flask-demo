@@ -6,13 +6,12 @@
 # flask-demo uses to add and fetch file uploads
 # and owner information to and from a file database.
 
-import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
-	'sqlite://///Users/jamesgray/Desktop/Source/Python/flask-demo/data/uploads.db'
+	'sqlite://///home/jamesgray/flask-demo/data/uploads.db'
 
 # Create SQLAlchemy object for file database
 fdb = SQLAlchemy(app)

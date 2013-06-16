@@ -2,12 +2,12 @@
 # Author: James Gray
 # June 2013
 #
-# This file contains the main Flask 
+# This file contains the main Flask
 # application logic for the project.
 
 import os
 from flask import Flask, request, session, redirect, \
-	url_for, render_template, flash, send_from_directory
+    url_for, render_template, flash, send_from_directory
 from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug import secure_filename
 from tools import get_user, has_file_access, valid_file, valid_user, display
@@ -27,8 +27,8 @@ def init_db():
 @app.after_request
 def after_request(response):
 	"""
-	Add header to prevent browser from caching pages. 
-	This will prevent a user from accessing their files 
+	Add header to prevent browser from caching pages.
+	This will prevent a user from accessing their files
 	after logging out, or after logging in as another user.
 	"""
 	response.headers['Cache-Control'] = 'private, max-age=0'
@@ -111,9 +111,9 @@ def files(name):
 		uploads = [dict(userid=f.userid, filename=f.filename) \
 			for f in Upload.query.all()]
 		return render_template('files.html', username=name, uploads=uploads)
-	
-	# If an error occurs, display the error and 
-	# redirect to the appropriate page.	
+
+	# If an error occurs, display the error and
+	# redirect to the appropriate page.
 	display(error)
 	if 'logged_in' in session:
 		return redirect(url_for('files', name=session['logged_in']))
@@ -142,7 +142,7 @@ def upload(name):
 				flash("Invalid filename or file type.")
 		return render_template('upload.html')
 
-	# If an error occurs, display the error and 
+	# If an error occurs, display the error and
 	# redirect to the appropriate page.
 	display(error)
 	if 'logged_in' in session:
@@ -163,7 +163,7 @@ def uploaded_file(name, filename):
 		else:
 			error = "Access denied."
 
-	# If an error occurs, display the error and 
+	# If an error occurs, display the error and
 	# redirect to the appropriate page.
 	display(error)
 	if 'logged_in' in session:

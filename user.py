@@ -3,17 +3,17 @@
 # June 2013
 #
 # This file contains the User class, which
-# flask-demo uses to add and fetch user instances 
+# flask-demo uses to add and fetch user instances
 # to and from a user database.
 
-import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
-	'sqlite://///Users/jamesgray/Desktop/Source/Python/flask-demo/data/users.db'
+    'sqlite://///home/jamesgray/flask-demo/data/users.db'
+
 # Create SQLAlchemy object for user database
 udb = SQLAlchemy(app)
 
@@ -28,12 +28,12 @@ class User(udb.Model):
 	def __init__(self, username, password):
 		self.name = username
 
-		# Get an instance of the user object from the 
+		# Get an instance of the user object from the
 		# database if it exists.
 		db_instance = User.query.filter_by(name=username).first()
 
 		if db_instance is None:
-			# Insert the user object into the database 
+			# Insert the user object into the database
 			# if no instance exists.
 			self.set_pw(password)
 			udb.session.add(self)
