@@ -100,7 +100,6 @@ def create():
 
 @app.route('/user/<name>/files/')
 @app.route('/user/<name>/', alias=True)
-@app.route('/user/', alias=True)
 def files(name):
 	"""
 	This page presents a user's uploaded files, and allows
