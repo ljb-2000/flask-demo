@@ -35,11 +35,11 @@ class User(udb.Model):
 		if db_instance is None:
 			# Insert the user object into the database
 			# if no instance exists.
-			self.set_pw(password)
+			self.__set_pw(password)
 			udb.session.add(self)
 			udb.session.commit()
 
-	def set_pw(self, password):
+	def __set_pw(self, password):
 		"""
 		Generates a hash for the given password, to be
 		stored in the database.
@@ -51,15 +51,6 @@ class User(udb.Model):
 		Checks a password against the stored hash.
 		"""
 		return check_password_hash(self.pw_hash, password)
-
-	def remove(self):
-		"""
-		Completely remove the user from the database.
-		Note that you must query the database for the user object
-		to be deleted before calling this function.
-		"""
-		udb.session.delete(self)
-		udb.session.commit()
 
 	def __repr__(self):
 		return '<User %r>' % self.name
