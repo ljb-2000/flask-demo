@@ -7,8 +7,7 @@
 	site - each other page inherits this via Jinja2.-->
 
 <title>flask demo</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static',
-filename='style.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <div class=page>
 	<h1>flask demo <span id=subtitle>by James Gray</span></h1>
 	{% for message in get_flashed_messages() %}
